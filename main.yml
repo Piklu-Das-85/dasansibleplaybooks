@@ -24,7 +24,7 @@
       - name: mydbuser
         host: "%"
         password: userSecret@password
-        priv: "das_db.*:ALL"
+        priv: "my_app_db.*:ALL"
     mysql_port: 3306
     mysql_bind_address: '0.0.0.0'
     mysql_daemon: mysqld
