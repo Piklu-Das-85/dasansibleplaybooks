@@ -1,0 +1,28 @@
+---
+# tasks file for mysql5.7-role
+
+# Variable configuration.
+- name: Include OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+      skip: false
+
+# Install Mysql
+- name: Configure system
+  include_tasks: '{{ item }}'
+  with_first_found:
+    - files:
+        - "setup-{{  ansible_distribution  }}.yml"
+      skip: false
+
+# Configure MySQL.
+- name: Configure
+  include_tasks: configure.yml
+
+- name: Run secure installation
+  include_tasks: secure-installation.yml
+
+- name: Create databases and users
+  include_tasks: databases_and_users.yml

@@ -1,0 +1,4 @@
+# handlers file for mysql5.7-role
+---
+- name: restart mysql
+  include_tasks: mysql_restart.yml

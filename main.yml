@@ -1,0 +1,31 @@
+---
+
+# There are two way we can call the role. Two metholodgies mention below
+
+#- name: Install mysql server on Centos
+#  hosts: dbservers
+#  become: yes
+#  tasks:
+#   - include_role:
+#      name:  mysql5.7-role
+
+
+- name: Install MySQL Server on CentOS 7
+  hosts: dbservers
+  roles:
+    - role: mysql5.7-role
+  vars:
+    mysql_root_password: rootSecret@password
+    mysql_databases:
+      - name: my_app_db
+        encoding: latin1
+        collation: latin1_general_ci
+    mysql_users:
+      - name: mydbuser
+        host: "%"
+        password: userSecret@password
+        priv: "das_db.*:ALL"
+    mysql_port: 3306
+    mysql_bind_address: '0.0.0.0'
+    mysql_daemon: mysqld
+    mysql_version: 5.7
